@@ -1,0 +1,8 @@
+# Environment files
+.env
+.env.local
+
+# Node/Vite common
+node_modules/
+dist/
+**/.DS_Store
