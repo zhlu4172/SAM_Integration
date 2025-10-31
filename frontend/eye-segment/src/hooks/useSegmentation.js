@@ -4,22 +4,23 @@ import { segmentImage } from "../services/apiClient";
 export function useSegmentation() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [maskUrl, setMaskUrl] = useState(null); 
 
-  const run = useCallback(async (file) => {
+  const runSegmentation = useCallback(async (file) => {
     setLoading(true);
     setError(null);
+    setMaskUrl(null); 
+
     try {
-      const maskUrl = await segmentImage(file);
-      return maskUrl;
+      const result = await segmentImage(file);
+      setMaskUrl(result);
     } catch (e) {
-      setError(e.message || String(e));
-      return null;
+      console.error(e);
+      setError(e.message || "Segmentation failed.");
     } finally {
       setLoading(false);
     }
   }, []);
 
-  return { loading, error, run };
+  return { runSegmentation, maskUrl, loading, error };
 }
-
-
