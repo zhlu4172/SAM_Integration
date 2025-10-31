@@ -12,13 +12,18 @@ import { generateOverlay } from "./utils/canvas.js";
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null); // new: local preview
-  const [resultUrl, setResultUrl] = useState(null);   // mask image
-  const [overlayUrl, setOverlayUrl] = useState(null); // overlay image
-  const [overlayVisible, setOverlayVisible] = useState(true); // overlay toggle
-  const [displayHeight, setDisplayHeight] = useState(300); // align placeholder size to original
+  const [previewUrl, setPreviewUrl] = useState(null); 
+  const [resultUrl, setResultUrl] = useState(null);   
+  const [overlayVisible, setOverlayVisible] = useState(true); 
+  const [displayHeight, setDisplayHeight] = useState(300); 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const overlayUrl = useOverlay({
+    originalUrl: previewUrl,
+    maskUrl: resultUrl,
+    tint: "rgba(0,123,255,0.4)"
+  });
 
   // when user selects a file
   const handleFileChange = (e) => {
@@ -120,19 +125,10 @@ function App() {
     setError(null);
     // clear previous results and reset overlay visiblity
     setResultUrl(null);
-    setOverlayUrl(null);
     setOverlayVisible(true);
     try {
       const maskUrl = await segmentImage(selectedFile);
       setResultUrl(maskUrl);
-      if (previewUrl) {
-        try {
-          const overlay = await generateOverlay(previewUrl, maskUrl);
-          setOverlayUrl(overlay);
-        } catch (e) {
-          console.error(e);
-        }
-      }
     } catch (err) {
       console.error(err);
       setError("Segmentation failed. Please try again.");
