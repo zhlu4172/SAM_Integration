@@ -6,6 +6,11 @@ export function useSegmentation() {
   const [error, setError] = useState(null);
   const [maskUrl, setMaskUrl] = useState(null); 
 
+  const reset = useCallback(() => {
+    setMaskUrl(null);
+    setError(null);
+  }, []);
+
   const runSegmentation = useCallback(async (file) => {
     setLoading(true);
     setError(null);
@@ -22,5 +27,5 @@ export function useSegmentation() {
     }
   }, []);
 
-  return { runSegmentation, maskUrl, loading, error };
+  return { runSegmentation, maskUrl, loading, error, reset };
 }

@@ -18,6 +18,7 @@ function App() {
     maskUrl: resultUrl,
     loading,
     error,
+    reset,
   } = useSegmentation();
 
   const overlayUrl = useOverlay({
@@ -30,6 +31,9 @@ function App() {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
+    // Clear previous results when new file is selected
+    reset();
+    setOverlayVisible(true);
     if (file) {
       setPreviewUrl(URL.createObjectURL(file));
       const img = new Image();
@@ -87,15 +91,6 @@ function App() {
       >
         <ImagePicker onChange={handleFileChange} />
         <SegmentationControls onSegment={handleUpload} loading={loading} />
-        <span
-          style={{
-            minWidth: 120,
-            textAlign: "left",
-            color: loading ? "#0d6efd" : error ? "#dc3545" : "#6c757d",
-          }}
-        >
-          {loading ? "Segmenting..." : error ? error : ""}
-        </span>
       </div>
 
       {(previewUrl || resultUrl || overlayUrl) && (

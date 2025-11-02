@@ -1,3 +1,5 @@
+import Spinner from "./Spinner.jsx";
+
 export default function OverlayView({ loading, overlayVisible, setOverlayVisible, overlayUrl, fallbackOriginalUrl, height }) {
   return (
     <div style={{ textAlign: "center" }}>
@@ -10,8 +12,8 @@ export default function OverlayView({ loading, overlayVisible, setOverlayVisible
         style={{ cursor: !loading && overlayUrl ? "pointer" : "default" }}
       >
         {loading && (
-          <div style={{ width: "100%", maxWidth: 300, height, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "8px", boxShadow: "0 0 8px rgba(0,0,0,0.1)", background: "#f1f3f5", color: "#495057", fontWeight: 600 }}>
-            Loading...
+          <div style={{ width: "100%", maxWidth: 300, height, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "8px", boxShadow: "0 0 8px rgba(0,0,0,0.1)", background: "#f1f3f5" }}>
+            <Spinner />
           </div>
         )}
         {!loading && overlayUrl && overlayVisible && (

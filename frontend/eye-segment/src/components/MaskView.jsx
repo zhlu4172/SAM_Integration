@@ -1,10 +1,12 @@
+import Spinner from "./Spinner.jsx";
+
 export default function MaskView({ loading, src, height }) {
   return (
     <div style={{ textAlign: "center" }}>
       <h3>Mask</h3>
       {loading && (
-        <div style={{ width: "100%", maxWidth: 300, height, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "8px", boxShadow: "0 0 8px rgba(0,0,0,0.1)", background: "#f1f3f5", color: "#495057", fontWeight: 600 }}>
-          Loading...
+        <div style={{ width: "100%", maxWidth: 300, height, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "8px", boxShadow: "0 0 8px rgba(0,0,0,0.1)", background: "#f1f3f5" }}>
+          <Spinner />
         </div>
       )}
       {!loading && src && (
@@ -16,6 +18,9 @@ export default function MaskView({ loading, src, height }) {
             </a>
           </div>
         </>
+      )}
+      {!loading && !src && (
+        <div style={{ width: "100%", maxWidth: 300, height, margin: "0 auto", borderRadius: "8px", boxShadow: "0 0 8px rgba(0,0,0,0.05)", background: "#f8f9fa" }} />
       )}
     </div>
   );

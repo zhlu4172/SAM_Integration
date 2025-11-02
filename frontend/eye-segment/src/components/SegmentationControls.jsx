@@ -1,3 +1,5 @@
+import Spinner from "./Spinner.jsx";
+
 export default function SegmentationControls({ onSegment, loading }) {
   return (
     <button
@@ -9,10 +11,22 @@ export default function SegmentationControls({ onSegment, loading }) {
         color: "white",
         border: "none",
         borderRadius: "5px",
-        cursor: "pointer",
+        cursor: loading ? "not-allowed" : "pointer",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "0.5rem",
+        opacity: loading ? 0.7 : 1,
       }}
     >
-      {loading ? "Segmenting..." : "Segment Image"}
+      {loading ? (
+        <>
+          <Spinner size={16} color="white" borderWidth={2} />
+          <span>Segmenting...</span>
+        </>
+      ) : (
+        "Segment Image"
+      )}
     </button>
   );
 }
