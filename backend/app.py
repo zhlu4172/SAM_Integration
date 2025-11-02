@@ -11,7 +11,7 @@ import os
 
 torch.set_default_dtype(torch.float32)
 device = "mps" if torch.backends.mps.is_available() else "cpu"
-print(f"🧠 Using device: {device}")
+print(f"Using device: {device}")
 
 app = Flask(__name__)
 CORS(app)
